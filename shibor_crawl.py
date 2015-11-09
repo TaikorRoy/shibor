@@ -8,6 +8,7 @@ Created on Fri Aug 28 09:56:44 2015
 import requests
 import re 
 
+
 def shibor_crawl_and_parse():
     url = r"http://www.shibor.org/shibor/web/html/shibor.html"
     r = requests.get(url)
@@ -19,7 +20,7 @@ def shibor_crawl_and_parse():
     time = re.findall(r'<td align="right" valign="top" class="infoTitleW">(.+?)&nbsp;&nbsp;</td>',html)
     
     size = len(term)
-    master =list()
+    master = list()
     for i in range(size):
         if bp_symbol[i]== u'down':
             bp[i] = u'-' + bp[i]

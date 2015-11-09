@@ -43,7 +43,6 @@ class MySQLUpdater(object):
         issuetime = list()
         list_buffer = self.cursor.fetchall()
         for item in list_buffer:
-            print(item)
             issuetime.append(item[0])
         return issuetime
 
