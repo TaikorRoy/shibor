@@ -11,10 +11,19 @@ from lib import get_formated_time
 time_span = 5
 link_url = r"http://www.shibor.org/shibor/web/html/shibor.html"
 while True:
-    mysql = MySQLUpdater()
+    # mysql = MySQLUpdater()
     # existed = mysql.pull_records()
-    existed = check_remote(100)
-    records = shibor_crawl_and_parse()
+    try:
+        existed = check_remote(100)
+    except:
+        print("The remote check-shibor-data API is unavailable")
+        time.sleep(300)
+        continue
+    try:
+        records = shibor_crawl_and_parse()
+    except:
+        time.sleep(300)
+        continue
     new_data = list()
     for record in records:
         item = record.split(" ")
@@ -49,5 +58,5 @@ while True:
         r = requests.post(api_url, data=json_str, headers=headers)
         print(r.text)
 
-    mysql.clean_up()
+    # mysql.clean_up()
     time.sleep(time_span)

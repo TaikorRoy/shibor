@@ -16,12 +16,10 @@ def check_remote(n):
     r = requests.post(url, data=json_str, headers=headers)
     content = json.loads(r.text)
 
-    try:
-        issueTimes = content["data"]
-        urls = [item["issuetime"][:-5] for item in issueTimes]   # correct the time format
-    except:
-        urls = None
-    return urls
+    issueTimes = content["data"]
+    existed_times = [item["issuetime"][:-5] for item in issueTimes]   # correct the time format
+
+    return existed_times
 
 
 if __name__ == "__main__":
